@@ -18,6 +18,16 @@ class Pengaduan extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function agency()
+    {
+        return $this->belongsTo(Agency::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function tanggapans()
     {
         return $this->hasMany(Tanggapans::class);

@@ -15,9 +15,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('agency_id')                          ->unsigned()             ->nullable();
+            $table->foreign('agency_id')                             ->references('id')       ->on('agencies');
             $table->string('name');
             $table->string('email')                                  ->unique();
             $table->string('nik')                                    ->nullable()             ->unique();
+            $table->date('date_of_birth');
+            $table->enum('gender', ['male'], 'female');
+            $table->string('address');
             $table->string('phone');
             $table->string('img')                                    ->default('default.jpg');
             $table->timestamp('email_verified_at')                   ->nullable();

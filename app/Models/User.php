@@ -18,10 +18,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'agency_id',
         'name',
         'email',
         'password',
         'nik',
+        'date_of_birth',
+        'gender',
+        'address',
         'phone',
         'img',
         'role'
@@ -54,5 +58,10 @@ class User extends Authenticatable
     public function tanggapans()
     {
         return $this->hasMany(Tanggapan::class);
+    }
+
+    public function agency()
+    {
+        return $this->belongsTo(Agency::class);
     }
 }

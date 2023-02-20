@@ -49,10 +49,18 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        isset($data['agency_id']) ? null : $data['agency_id'] = null;
+
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'agency_id'     => ['nullable'],
+            'name'          => ['required', 'string', 'max:255'],
+            'nik'           => ['required', 'string', 'digits:16', 'unique:users'],
+            'date_of_birth' => ['required', 'date'],
+            'gender'        => ['required', 'in:male,female'],
+            'address'       => ['required', 'string'],
+            'phone'         => ['required', 'string', 'max:16'],
+            'email'         => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password'      => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -64,10 +72,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        dd($data);
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'agency_id'     => $data['agency_id'],
+            'name'          => $data['name'],
+            'nik'           => $data['nik'],
+            'date_of_birth' => $data['date_of_birth'],
+            'gender'        => $data['gender'],
+            'address'       => $data['address'],
+            'phone'         => $data['phone'],
+            'email'         => $data['email'],
+            'password'      => Hash::make($data['password']),
         ]);
     }
 }
